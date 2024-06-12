@@ -69,8 +69,8 @@ class ColorViewSet(viewsets.GenericViewSet,
                    mixins.UpdateModelMixin,
                    mixins.DestroyModelMixin):
     """
-    ViewSet for listing, creating, deleting, updating ProductType objects.
-    - List ProductType objects can be done by all anonymous and authorized users
+    ViewSet for listing, creating, deleting, updating Color objects.
+    - List Color objects can be done by all anonymous and authorized users
     - Create, Update, Delete requests can only be made by admin users
 
     *Update, Delete requests only via pk.
