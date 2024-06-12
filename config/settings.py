@@ -29,6 +29,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # apps
+    'account.apps.AccountConfig',
+    
+    # packages
+    'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
+
+    # ModuleNotFoundError: No module named 'pkg_resources' ->
+    # pip install --upgrade setuptools
+    # pip install --upgrade distribute
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [
@@ -117,3 +130,12 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
