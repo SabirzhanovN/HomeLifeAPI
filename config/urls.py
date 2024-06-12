@@ -4,8 +4,15 @@ from django.urls import path, include, re_path
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # For session login
-    path('account/', include('account.urls')),
+    # Register new User(Client)/ change fields(password, email, phone...)
     re_path(r'^auth/', include('djoser.urls')),
+    # Login/logout with token
     re_path(r'^auth/', include('djoser.urls.authtoken')),
+
+    # For session login/logout
+    path('api/account/', include('account.urls')),
+
+    # API
+    path('api/shop/', include('shop.urls')),
+    path('api/brand/', include('brand.urls')),
 ]

@@ -32,6 +32,8 @@ INSTALLED_APPS = [
 
     # apps
     'account.apps.AccountConfig',
+    'shop.apps.ShopConfig',
+    'brand.apps.BrandConfig',
     
     # packages
     'rest_framework',
