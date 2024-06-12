@@ -16,6 +16,8 @@ class BrandViewSet(viewsets.GenericViewSet,
     ViewSet for listing, creating, deleting, updating brand object.
     - List brand objects can be done by all anonymous and authorized users
     - Create, Update, Delete requests can only be made by admin users
+
+    *Update, Delete requests only via pk.
     """
     serializer_class = BrandSerializer
     permission_classes = (IsAdminOrReadOnly,)
