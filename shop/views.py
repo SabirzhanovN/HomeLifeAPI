@@ -2,6 +2,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, generics
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework import mixins
+from rest_framework.filters import SearchFilter
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
 
@@ -89,8 +90,9 @@ class ProductListRetrieveViewSet(viewsets.GenericViewSet,
     serializer_class = ProductListSerializer
     queryset = Product.objects.all()
     permission_classes = (AllowAny,)
-    filter_backends = (DjangoFilterBackend,)
+    filter_backends = (DjangoFilterBackend, SearchFilter)
     filterset_class = ProductFilter
+    search_fields = ('name', 'category__name', 'type__name')
 
     def retrieve(self, request, *args, **kwargs):
         """
