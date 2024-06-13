@@ -26,6 +26,7 @@ class ProductFilter(django_filters.FilterSet):
     """
     The ProductFilter class provides filtering functionality for the Product.
     Filtering can be done by the following fields:
+    - category
     - price (price range, set through two separate filters: price_min and price_max)
     - brand (multiple values represented by foreign keys)
     - type (multiple values represented by foreign keys)
@@ -34,6 +35,8 @@ class ProductFilter(django_filters.FilterSet):
     * Example of URL
     /api/shop/product/?brand=1&brand=2&type=1&type=2&power_min=100&power_max=200&price_min=50&price_max=500
     """
+    category = django_filters.ModelChoiceFilter(queryset=Category.objects.all())
+
     price_min = django_filters.NumberFilter(field_name="price", lookup_expr='gte')
     price_max = django_filters.NumberFilter(field_name="price", lookup_expr='lte')
     brand = django_filters.ModelMultipleChoiceFilter(queryset=Brand.objects.all())
@@ -44,6 +47,7 @@ class ProductFilter(django_filters.FilterSet):
     class Meta:
         model = Product
         fields = {
+            'category': ['exact'],
             'price': ['exact', 'gte', 'lte'],
             'brand': ['exact'],
             'type': ['exact'],
