@@ -12,17 +12,13 @@ from .permissions import IsAdminOrReadOnly
 from .models import Catalog, Category, ProductType, Color, Product
 
 
-class CatalogViewSet(viewsets.GenericViewSet,
-                     mixins.ListModelMixin,
-                     mixins.CreateModelMixin,
-                     mixins.UpdateModelMixin,
-                     mixins.DestroyModelMixin):
+class CatalogViewSet(viewsets.ModelViewSet):
     """
     ViewSet for listing, creating, deleting, updating Catalog objects.
-    - List Catalog objects can be done by all anonymous and authorized users
+    - List and Retrieve Catalog objects can be done by all anonymous and authorized users
     - Create, Update, Delete requests can only be made by admin users
 
-    *Update, Delete requests only via pk.
+    * Retrieve, Create, Update, Delete requests only via pk.
     """
     serializer_class = CatalogSerializer
     permission_classes = (IsAdminOrReadOnly,)
@@ -30,17 +26,13 @@ class CatalogViewSet(viewsets.GenericViewSet,
     queryset = Catalog.objects.all()
 
 
-class CategoryViewSet(viewsets.GenericViewSet,
-                      mixins.ListModelMixin,
-                      mixins.CreateModelMixin,
-                      mixins.UpdateModelMixin,
-                      mixins.DestroyModelMixin):
+class CategoryViewSet(viewsets.ModelViewSet):
     """
     ViewSet for listing, creating, deleting, updating Category objects.
-    - List Category objects can be done by all anonymous and authorized users
+    - List and Retrieve Category objects can be done by all anonymous and authorized users
     - Create, Update, Delete requests can only be made by admin users
 
-    *Update, Delete requests only via pk.
+    * Retrieve, Create, Update, Delete requests only via pk.
     """
     serializer_class = CategorySerializer
     permission_classes = (IsAdminOrReadOnly,)
@@ -77,7 +69,7 @@ class ColorViewSet(viewsets.GenericViewSet,
     - List Color objects can be done by all anonymous and authorized users
     - Create, Update, Delete requests can only be made by admin users
 
-    *Update, Delete requests only via pk.
+    * Update, Delete requests only via pk.
     """
 
     serializer_class = ColorSerializer
