@@ -17,5 +17,6 @@ urlpatterns = [
     # API
     path('api/shop/', include('shop.urls')),
     path('api/brand/', include('brand.urls')),
+    path('api/discount/', include('discount.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
   + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
