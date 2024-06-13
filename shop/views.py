@@ -1,9 +1,11 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, generics
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework import mixins
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
 
+from .filters import ProductFilter
 from .serializers import (CatalogSerializer, CategorySerializer, ProductTypeSerializer,
                           ColorSerializer, ProductSerializer, ProductListSerializer)
 from .permissions import IsAdminOrReadOnly
@@ -93,6 +95,8 @@ class ProductListRetrieveViewSet(viewsets.GenericViewSet,
     serializer_class = ProductListSerializer
     queryset = Product.objects.all()
     permission_classes = (AllowAny,)
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = ProductFilter
 
     def retrieve(self, request, *args, **kwargs):
         """

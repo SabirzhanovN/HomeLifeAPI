@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     # ModuleNotFoundError: No module named 'pkg_resources' ->
     # pip install --upgrade setuptools
     # pip install --upgrade distribute
-    'drf_yasg'
+    'drf_yasg',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -145,7 +146,11 @@ REST_FRAMEWORK = {
         # 'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
-    ]
+    ],
+
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
 }
 
 DJOSER = {
