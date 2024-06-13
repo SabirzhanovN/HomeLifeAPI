@@ -1,7 +1,25 @@
 import django_filters
 
 from brand.models import Brand
-from .models import Product, ProductType
+from .models import Product, ProductType, Category
+
+
+class ProductTypeFilter(django_filters.FilterSet):
+    """
+    The ProductTypeFilter class provides filtering functionality for the ProductType.
+    Filtering can be done by the following fields:
+    - category (multiple values represented by foreign keys)
+
+    * Example of URL
+    /api/shop/product-type/?category=1&category=3
+    """
+    category = django_filters.ModelMultipleChoiceFilter(queryset=Category.objects.all())
+
+    class Meta:
+        model = ProductType
+        fields = {
+            'category': ['exact']
+        }
 
 
 class ProductFilter(django_filters.FilterSet):

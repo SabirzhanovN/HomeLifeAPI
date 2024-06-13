@@ -5,7 +5,7 @@ from rest_framework import mixins
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
 
-from .filters import ProductFilter
+from .filters import ProductFilter, ProductTypeFilter
 from .serializers import (CatalogSerializer, CategorySerializer, ProductTypeSerializer,
                           ColorSerializer, ProductSerializer, ProductListSerializer)
 from .permissions import IsAdminOrReadOnly
@@ -57,6 +57,8 @@ class ProductTypeViewSet(viewsets.GenericViewSet,
     authentication_classes = (TokenAuthentication, SessionAuthentication)
     permission_classes = (IsAdminOrReadOnly,)
     queryset = ProductType.objects.all()
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = ProductTypeFilter
 
 
 class ColorViewSet(viewsets.GenericViewSet,
