@@ -75,11 +75,14 @@ class Product(models.Model):
     )
     # If the product is included in the list of discounts, the price after the discount will change
     price_after_discount = models.DecimalField(
-        default=price,
+        default=None,
         max_digits=10,
         decimal_places=2,
         null=True,
         blank=True
+    )
+    discount_percent = models.IntegerField(
+        default=0
     )
 
     # Each product of a certain category can have different fields "base_characteristic", "about_product".
