@@ -5,4 +5,8 @@ from . import views
 
 router = DefaultRouter()
 
-urlpatterns = []
+router.register('', views.DiscountViewSet, basename='discount')
+
+urlpatterns = [
+    path('', include(router.urls))
+]

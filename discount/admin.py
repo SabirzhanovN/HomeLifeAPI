@@ -30,6 +30,7 @@ class DiscountAdmin(admin.ModelAdmin):
 
             for product in old_products:
                 product.price_after_discount = None
+                product.discount_percent = 0
                 product.save()
                 print(f"Remove discount from {product.name}. price_after_discount -> {product.price_after_discount}")
 
