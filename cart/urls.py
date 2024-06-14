@@ -7,4 +7,6 @@ from . import views
 router = DefaultRouter()
 
 
-urlpatterns = []
+urlpatterns = [
+    path('', views.CartAPI.as_view())
+]

@@ -162,3 +162,5 @@ DJOSER = {
         'user': 'account.serializers.UserSerializer',
     },
 }
+
+CART_SESSION_ID = 'cart'
