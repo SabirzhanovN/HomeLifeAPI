@@ -11,6 +11,7 @@ from .serializers import (CatalogSerializer, CategorySerializer, ProductTypeSeri
                           ColorSerializer, ProductSerializer, ProductListSerializer)
 from .permissions import IsAdminOrReadOnly
 from .models import Catalog, Category, ProductType, Color, Product
+from .pagination import ProductPagination
 
 
 class CatalogViewSet(viewsets.ModelViewSet):
@@ -51,7 +52,7 @@ class ProductTypeViewSet(viewsets.GenericViewSet,
     - List ProductType objects can be done by all anonymous and authorized users
     - Create, Update, Delete requests can only be made by admin users
 
-    *Update, Delete requests only via pk.
+    * Update, Delete requests only via pk.
     """
 
     serializer_class = ProductTypeSerializer
@@ -93,6 +94,7 @@ class ProductListRetrieveViewSet(viewsets.GenericViewSet,
     filter_backends = (DjangoFilterBackend, SearchFilter)
     filterset_class = ProductFilter
     search_fields = ('name', 'category__name', 'type__name')
+    pagination_class = ProductPagination
 
     def retrieve(self, request, *args, **kwargs):
         """
