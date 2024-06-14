@@ -1,5 +1,5 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets, generics
+from rest_framework import viewsets, generics, status
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework import mixins
 from rest_framework.filters import SearchFilter
@@ -8,7 +8,7 @@ from rest_framework.response import Response
 
 from .filters import ProductFilter, ProductTypeFilter
 from .serializers import (CatalogSerializer, CategorySerializer, ProductTypeSerializer,
-                          ColorSerializer, ProductSerializer, ProductListSerializer)
+                          ColorSerializer, ProductSerializer, ProductListSerializer, CatalogDetailSerializer)
 from .permissions import IsAdminOrReadOnly
 from .models import Catalog, Category, ProductType, Color, Product
 from .pagination import ProductPagination
@@ -26,6 +26,15 @@ class CatalogViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAdminOrReadOnly,)
     authentication_classes = (TokenAuthentication, SessionAuthentication)
     queryset = Catalog.objects.all()
+
+    def retrieve(self, request, *args, **kwargs):
+        """
+        When viewing details about a catalog, categories related to it will also be displayed.
+        """
+        instance = self.get_object()
+        serializer = CatalogDetailSerializer(instance)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -103,7 +112,7 @@ class ProductListRetrieveViewSet(viewsets.GenericViewSet,
         """
         instance = self.get_object()
         serializer = ProductSerializer(instance)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class ProductCreateUpdateDestroyViewSet(viewsets.GenericViewSet,

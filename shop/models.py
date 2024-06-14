@@ -18,7 +18,8 @@ class Category(models.Model):
     catalog = models.ForeignKey(
         Catalog,
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        related_name="categories"
     )
 
     class Meta:

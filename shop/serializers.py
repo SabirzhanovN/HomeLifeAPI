@@ -16,6 +16,15 @@ class CategorySerializer(serializers.ModelSerializer):
         read_only_fields = ('id',)
 
 
+class CatalogDetailSerializer(serializers.ModelSerializer):
+    categories = CategorySerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Category
+        fields = ('id', 'name', 'categories')
+        read_only_fields = ('id', 'name', 'categories')
+
+
 class ProductTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductType
