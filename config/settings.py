@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'brand.apps.BrandConfig',
     'discount.apps.DiscountConfig',
+    'cart.apps.CartConfig',
     
     # packages
     'rest_framework',
