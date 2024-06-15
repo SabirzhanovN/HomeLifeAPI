@@ -1,4 +1,6 @@
 from rest_framework import serializers
+
+from review.serializers import GradeDescriptionListSerializer
 from .models import Catalog, Category, ProductType, Color, Product
 
 
@@ -23,6 +25,15 @@ class CatalogDetailSerializer(serializers.ModelSerializer):
         model = Category
         fields = ('id', 'name', 'categories')
         read_only_fields = ('id', 'name', 'categories')
+
+
+class CategoryDetailSerializer(serializers.ModelSerializer):
+    grade_descriptions = GradeDescriptionListSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Category
+        fields = ('id', 'name', 'catalog', 'grade_descriptions')
+        read_only_fields = ('id', 'name', 'catalog', 'grade_descriptions')
 
 
 class ProductTypeSerializer(serializers.ModelSerializer):

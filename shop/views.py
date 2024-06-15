@@ -8,7 +8,8 @@ from rest_framework.response import Response
 
 from .filters import ProductFilter, ProductTypeFilter
 from .serializers import (CatalogSerializer, CategorySerializer, ProductTypeSerializer,
-                          ColorSerializer, ProductSerializer, ProductListSerializer, CatalogDetailSerializer)
+                          ColorSerializer, ProductSerializer, ProductListSerializer, CatalogDetailSerializer,
+                          CategoryDetailSerializer)
 from .permissions import IsAdminOrReadOnly
 from .models import Catalog, Category, ProductType, Color, Product
 from .pagination import ProductPagination
@@ -49,6 +50,15 @@ class CategoryViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAdminOrReadOnly,)
     authentication_classes = (TokenAuthentication, SessionAuthentication)
     queryset = Category.objects.all()
+
+    def retrieve(self, request, *args, **kwargs):
+        """
+        When viewing details about a category, GradeDescriptions related to it will also be displayed.
+        """
+        instance = self.get_object()
+        serializer = CategoryDetailSerializer(instance)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class ProductTypeViewSet(viewsets.GenericViewSet,
