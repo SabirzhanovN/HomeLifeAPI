@@ -1,5 +1,12 @@
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 
 from . import views
 
-urlpatterns = []
+router = DefaultRouter()
+
+router.register('grade-description', views.GradeDescriptionViewSet, basename='grade-description')
+
+urlpatterns = [
+    path('', include(router.urls))
+]
