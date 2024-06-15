@@ -3,7 +3,7 @@ from decimal import Decimal
 from rest_framework import serializers
 
 from shop.models import Product
-from .models import GradeDescription, Review
+from .models import GradeDescription, Review, Reply
 
 
 class GradeDescriptionListSerializer(serializers.ModelSerializer):
@@ -58,3 +58,20 @@ class ReviewSerializer(serializers.ModelSerializer):
         product.save()
 
         return super(ReviewSerializer, self).create(validated_data)
+
+
+class ReplySerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        """
+        We customize the initializer so that only the user through whom the request
+        is made is displayed in the browsable api
+        """
+        super(ReplySerializer, self).__init__(*args, **kwargs)
+        if 'request' in self.context:
+            self.fields['user'].queryset = self.fields['user'].queryset.filter(
+                email=self.context['view'].request.user)
+
+    class Meta:
+        model = Reply
+        fields = ('id', 'user', 'review', 'parent', 'content', 'date_of_create')
+        read_only_fields = ('id', 'date_of_create')

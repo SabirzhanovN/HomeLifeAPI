@@ -3,8 +3,8 @@ from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework import viewsets, mixins
 
-from .models import GradeDescription, Review
-from .serializers import GradeDescriptionSerializer, ReviewSerializer
+from .models import GradeDescription, Review, Reply
+from .serializers import GradeDescriptionSerializer, ReviewSerializer, ReplySerializer
 from .filters import ReviewFilter
 
 
@@ -36,3 +36,16 @@ class ReviewViewSet(viewsets.GenericViewSet,
     queryset = Review.objects.all()
     filter_backends = (DjangoFilterBackend,)
     filterset_class = ReviewFilter
+
+
+class ReplyViewSet(viewsets.GenericViewSet,
+                   mixins.ListModelMixin,
+                   mixins.CreateModelMixin):
+    """
+    ViewSet to view the list, write a response to a review or to an answer.
+    All users can post or reply to each other.
+    Non-authorized users will be under the name AnonymousUser
+    """
+    serializer_class = ReplySerializer
+    permission_classes = (AllowAny,)
+    queryset = Reply.objects.all()

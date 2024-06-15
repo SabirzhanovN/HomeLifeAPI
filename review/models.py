@@ -71,3 +71,48 @@ class Review(models.Model):
 
     def __str__(self):
         return f"{str(self.user.email)} - {self.product.name} - {self.content[:20]}"
+
+
+class Reply(models.Model):
+    user = models.ForeignKey(
+        user,
+        on_delete=models.CASCADE,
+        null=True, blank=True,
+        default=None
+    )
+    review = models.ForeignKey(
+        Review,
+        on_delete=models.CASCADE,
+        related_name="replies"
+    )
+
+    parent = models.ForeignKey(
+        "self",
+        on_delete=models.CASCADE,
+        null=True, blank=True
+    )
+    content = models.TextField()
+    date_of_create = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Reply"
+        verbose_name_plural = "Replies"
+
+    def save(self, *args, **kwargs):
+        if not self.user:
+            # We take the previously created AnonymousUser from the database.
+            # If it doesn't exist, we create it
+            self.user, created = user.objects.get_or_create(
+                email="Anonymous@Anonymous",
+                defaults={
+                    "first_name": "AnonymousUser",
+                    "email": "Anonymous@Anonymous",
+                    "phone": "0",
+                    "password": "anonymous_user"
+                }
+            )
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"Reply to reply with id={str(self.parent.id)}" if self.parent \
+          else f"Reply to review with id={str(self.review.id)}"

@@ -6,6 +6,7 @@ from . import views
 router = DefaultRouter()
 
 router.register('', views.ReviewViewSet, basename='reviews')
+router.register('reply', views.ReplyViewSet, basename='reply')
 router.register('grade-description', views.GradeDescriptionViewSet, basename='grade-description')
 
 urlpatterns = [
