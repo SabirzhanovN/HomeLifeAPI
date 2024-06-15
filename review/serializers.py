@@ -75,3 +75,11 @@ class ReplySerializer(serializers.ModelSerializer):
         model = Reply
         fields = ('id', 'user', 'review', 'parent', 'content', 'date_of_create')
         read_only_fields = ('id', 'date_of_create')
+
+
+class ReviewDetailSerializer(serializers.ModelSerializer):
+    replies = ReplySerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Review
+        fields = ('id', 'product', 'content', 'user', 'grades', 'average_grade', 'date_of_create', 'replies')
