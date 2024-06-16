@@ -6,7 +6,7 @@ class Discount(models.Model):
     percent = models.IntegerField()
 
     products = models.ManyToManyField(
-        Product,
+        Product
     )
 
     class Meta:
@@ -14,4 +14,4 @@ class Discount(models.Model):
         verbose_name_plural = 'Discounts'
 
     def __str__(self):
-        return f'{str(self.percent)}% - {str(self.products)}'
+        return f'{str(self.percent)}% - {str(self.products.__sizeof__())}'
