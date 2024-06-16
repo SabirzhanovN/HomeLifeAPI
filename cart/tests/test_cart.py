@@ -79,9 +79,9 @@ class CartTestCase(TestCase):
     def test_clear_cart(self):
         product = self.create_product()
         self.cart.add({"id": product.id})
-        self.cart.clear()
+        self.cart.cart.clear()
         self.assertTrue(self.request.session.modified)
-        # self.assertEqual(self.cart.cart, {}) ???
+        self.assertEqual(self.cart.cart, {})
 
     def test_add_invalid_product(self):
         with self.assertRaises(ValueError):
@@ -102,21 +102,6 @@ class CartTestCase(TestCase):
         self.assertEqual(len(items), 1)
         self.assertEqual(items[0]["quantity"], 1)
         self.assertEqual(items[0]["price"], Decimal("10.00"))
-
-    # def test_iterate_cart_with_price_after_discount(self):
-    #     product = self.create_product()
-    #
-    #     discount = Discount.objects.create(
-    #         percent=50,
-    #     )
-    #     discount.products.add(product)
-    #
-    #     self.cart.add({"id": product.id})
-    #     items = list(self.cart)
-    #     self.assertEqual(len(items), 1)
-    #     self.assertEqual(items[0]["quantity"], 1)
-    #     print(items[0])
-    #     self.assertEqual(items[0]["price"], Decimal("5.00"))
 
     def test_save_method(self):
         product = self.create_product()

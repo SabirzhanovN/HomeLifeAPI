@@ -53,5 +53,3 @@ class CartAPI(APIView):
         return Response(
             {"message": "cart updated"},
             status=status.HTTP_202_ACCEPTED)
-
-#{"product": {"id":12}, "quantity": 2}
