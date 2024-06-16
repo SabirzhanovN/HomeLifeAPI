@@ -36,5 +36,5 @@ class Order(models.Model):
         return f"{str(self.id)} of {self.get_full_name()}"
 
     def get_full_name(self):
-        full_name = f"{self.first_name} {self.last_name}" if {self.last_name} else f"{self.first_name}"
+        full_name = f"{self.first_name} {self.last_name if self.last_name is not None else ''}"
         return full_name

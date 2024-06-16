@@ -3,4 +3,10 @@ from rest_framework.routers import DefaultRouter
 
 from . import views
 
-urlpatterns = []
+router = DefaultRouter()
+
+router.register('order', views.OrderViewSet, basename='order')
+
+urlpatterns = [
+    path('', include(router.urls))
+]
