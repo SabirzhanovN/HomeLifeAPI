@@ -3,13 +3,13 @@ from djoser.serializers import UserCreateSerializer as BaseUserCreateSerializer,
 from rest_framework import serializers
 
 
-class UserCreateSerializer(BaseUserCreateSerializer):
+class CustomUserCreateSerializer(BaseUserCreateSerializer):
     class Meta(BaseUserCreateSerializer.Meta):
         model = get_user_model()
         fields = ('id', 'email', 'phone', 'gender', 'role', 'age', 'password')
 
 
-class UserSerializer(BaseUserSerializer):
+class CustomUserSerializer(BaseUserSerializer):
     class Meta(BaseUserSerializer.Meta):
         model = get_user_model()
         fields = ('id', 'email', 'phone', 'gender', 'role', 'age')

@@ -160,9 +160,14 @@ REST_FRAMEWORK = {
 DJOSER = {
     'LOGIN_FIELD': 'email',
     'SERIALIZERS': {
-        'user_create': 'account.serializers.UserCreateSerializer',
-        'user': 'account.serializers.UserSerializer',
+        'user_create': 'account.serializers.CustomUserCreateSerializer',
+        'user': 'account.serializers.CustomUserSerializer',
     },
+}
+
+SWAGGER_SETTINGS = {
+    'LOGIN_URL': '/api/account/login/',
+    'LOGOUT_URL': '/api/account/logout/'
 }
 
 CART_SESSION_ID = 'cart'
